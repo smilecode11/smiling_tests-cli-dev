@@ -1,0 +1,14 @@
+{
+  "name": "@smiling_tests/cli-dev",
+  "version": "1.0.0",
+  "description": "cli dev",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "smiling.",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}

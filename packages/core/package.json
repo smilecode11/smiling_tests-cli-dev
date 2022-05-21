@@ -1,0 +1,22 @@
+{
+  "name": "@smiling_tests/cli-dev-core",
+  "version": "1.0.0",
+  "description": "cli-dev core",
+  "author": "尘心 <smilewupeng@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Runing testing from core\""
+  },
+  "dependencies": {
+    "@smiling_tests/cli-dev-utils": "1.0.0"
+  }
+}
