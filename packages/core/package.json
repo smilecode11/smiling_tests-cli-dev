@@ -1,6 +1,6 @@
 {
   "name": "@smiling_tests/cli-dev-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cli-dev core",
   "author": "尘心 <smilewupeng@gmail.com>",
   "homepage": "",
@@ -17,7 +17,7 @@
     "test": "echo \"Runing testing from core\""
   },
   "dependencies": {
-    "@smiling_tests/cli-dev-utils": "1.0.0"
+    "@smiling_tests/cli-dev-utils": "^1.0.1"
   },
   "publishConfig": {
     "access": "public"
