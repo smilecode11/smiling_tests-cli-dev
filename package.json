@@ -2,10 +2,6 @@
   "name": "@smiling_tests/cli-dev",
   "version": "1.0.2",
   "description": "cli dev",
-  "main": "index.js",
-  "bin": {
-    "cli": "core/cli/bin/index.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
