@@ -16,5 +16,8 @@
   "scripts": {
     "test": "echo \"Runing testing from utils\""
   },
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
