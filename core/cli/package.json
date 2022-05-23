@@ -20,8 +20,20 @@
     "test": "echo \"Runing testing from core\""
   },
   "dependencies": {
+    "@smiling_tests/cli-dev-log": "file:../../utils/log",
+    "@smiling_tests/cli-dev-utils": "file:../../utils/utils",
+    "@smiling_tests/get-npm-info": "file:../../utils/get-npm-info",
+    "@smiling_tests/cli-dev-exec":"file:../exec",
+    "colors": "^1.4.0",
+    "commander": "^6.2.1",
+    "dotenv": "^16.0.1",
     "import-local": "^3.1.0",
-    "npmlog": "^6.0.2"
+    "minimist": "^1.2.6",
+    "npmlog": "^6.0.2",
+    "path-exists": "4.0.0",
+    "root-check": "^1.0.0",
+    "semver": "^7.3.7",
+    "user-home": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
