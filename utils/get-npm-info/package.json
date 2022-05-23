@@ -1,0 +1,34 @@
+{
+  "name": "@smiling_tests/cli-dev-get-npm-info",
+  "version": "1.0.4",
+  "description": "get npm info",
+  "author": "尘心 <smilewupeng@gmail.com>",
+  "homepage": "https://github.com/smilecode11/smiling_tests-cli-dev#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smilecode11/smiling_tests-cli-dev.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/smilecode11/smiling_tests-cli-dev/issues"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "semver": "^7.3.7",
+    "url-join": "4.0.1"
+  }
+}
