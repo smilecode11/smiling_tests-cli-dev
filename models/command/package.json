@@ -1,6 +1,6 @@
 {
   "name": "@smiling_tests/cli-dev-command",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Command 类实现",
   "author": "尘心 <smilewupeng@gmail.com>",
   "homepage": "https://github.com/smilecode11/smiling_tests-cli-dev#readme",
@@ -27,9 +27,9 @@
     "url": "https://github.com/smilecode11/smiling_tests-cli-dev/issues"
   },
   "dependencies": {
-    "colors": "^1.4.0",
-    "semver": "^7.3.7",
     "@smiling_tests/cli-dev-log": "file:../../utils/log",
-    "@smiling_tests/cli-dev-utils": "file:../../utils/utils"
+    "@smiling_tests/cli-dev-utils": "file:../../utils/utils",
+    "colors": "^1.4.0",
+    "semver": "^7.3.7"
   }
 }

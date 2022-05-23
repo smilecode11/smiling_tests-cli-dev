@@ -1,6 +1,6 @@
 {
   "name": "@smiling_tests/cli-dev-core",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "cli-dev core",
   "author": "尘心 <smilewupeng@gmail.com>",
   "homepage": "",
@@ -20,10 +20,10 @@
     "test": "echo \"Runing testing from core\""
   },
   "dependencies": {
+    "@smiling_tests/cli-dev-exec": "file:../exec",
     "@smiling_tests/cli-dev-log": "file:../../utils/log",
     "@smiling_tests/cli-dev-utils": "file:../../utils/utils",
     "@smiling_tests/get-npm-info": "file:../../utils/get-npm-info",
-    "@smiling_tests/cli-dev-exec":"file:../exec",
     "colors": "^1.4.0",
     "commander": "^6.2.1",
     "dotenv": "^16.0.1",
