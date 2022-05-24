@@ -79,11 +79,11 @@ class Package {
     async update() {
         await this.prepare()
         //  获取最新版本号
-        const latestPackageVersion = await getNpmLatestVersion(this.packageVersion)
+        const latestPackageVersion = await getNpmLatestVersion(this.packageName)
         //  查询最新版本号对应缓存文件路径是否存在
         const latestFilePath = this.getSpecificCacheFilePath(latestPackageVersion)
         //  如果不存在, 执行安装最新版本
-        if (!latestFilePath) {
+        if (!pathExists(latestFilePath)) {
             await npminstall({
                 root: this.targetPath,
                 storeDir: this.storeDir,
@@ -100,7 +100,7 @@ class Package {
 
     //  获取入口文件路径
     getRootFilePath() {
-        
+
         function _getRootFile(targetPath) {
             //  1. 获取 package.json 所在目录 - pkg-dir
             const dir = pkgDir(targetPath)

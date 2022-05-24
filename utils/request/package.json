@@ -1,7 +1,7 @@
 {
-  "name": "@smiling_tests/cli-dev-init",
+  "name": "@smiling_tests/cli-dev-request",
   "version": "1.0.8",
-  "description": "command init",
+  "description": "cli-dev 请求工具方法",
   "author": "尘心 <smilewupeng@gmail.com>",
   "homepage": "https://github.com/smilecode11/smiling_tests-cli-dev#readme",
   "license": "ISC",
@@ -27,14 +27,6 @@
     "url": "https://github.com/smilecode11/smiling_tests-cli-dev/issues"
   },
   "dependencies": {
-    "@smiling_tests/cli-dev-command": "file:../../models/command",
-    "@smiling_tests/cli-dev-log": "file:../../utils/log",
-    "@smiling_tests/cli-dev-package": "file:../../models/package",
-    "@smiling_tests/cli-dev-request": "file:../../utils/request",
-    "@smiling_tests/cli-dev-utils": "file:../../utils/utils",
-    "fs-extra": "^9.0.1",
-    "inquirer": "^8.2.4",
-    "semver": "^7.3.7",
-    "user-home": "^3.0.0"
+    "axios": "^0.27.2"
   }
 }

@@ -48,11 +48,11 @@ function registerCommand() {
     //  debug 参数监听
     program.on('option:debug', function () {
         if (program.debug) {
-            process.CLI_LOG_LEVEL = 'verbose'
+            process.env.CLI_LOG_LEVEL = 'verbose'
         } else {
-            process.CLI_LOG_LEVEL = 'info'
+            process.env.CLI_LOG_LEVEL = 'info'
         }
-        log.level = process.CLI_LOG_LEVEL
+        log.level = process.env.CLI_LOG_LEVEL
     });
 
     //  targetPath 参数监听, 通过环境变量进行存储

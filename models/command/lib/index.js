@@ -15,10 +15,10 @@ class Command {
 
         let runner = new Promise((resolve, reject) => {
             let chain = Promise.resolve()
-            chain = chain.then(() => this.checkNodeVersion())
-            chain = chain.then(() => this.initArgv())
-            chain = chain.then(() => this.init())
-            chain = chain.then(() => this.exec())
+            chain = chain.then(() => this.checkNodeVersion())   //  版本检查
+            chain = chain.then(() => this.initArgv())   //  argv 初始化
+            chain = chain.then(() => this.init())   //  command 初始化
+            chain = chain.then(() => this.exec())   //  command 操作执行
             //  侦听 promise 返回错误
             chain.catch(error => {
                 log.error(error.message)
