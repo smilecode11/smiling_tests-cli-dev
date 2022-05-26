@@ -1,9 +1,9 @@
 'use strict';
 
 const path = require('path')
-const childProcess = require("child_process")
 const Package = require('@smiling_tests/cli-dev-package')
 const log = require('@smiling_tests/cli-dev-log')
+const { exec: spawn } = require("@smiling_tests/cli-dev-utils")
 
 /** 命令映射列表*/
 const COMMAND_SETTINGS = {
@@ -93,16 +93,6 @@ async function exec() {
             log.error(e.message)
         }
     }
-}
-
-/** 兼容 windows 系统 spawn */
-function spawn(command, args, options) {
-    const win32 = process.platform === 'win32';
-
-    const cmd = win32 ? 'cmd' : command
-    const cmdArgs = win32 ? ['/c'].concat(command, args) : args
-
-    return childProcess.spawn(cmd, cmdArgs, options || {})
 }
 
 module.exports = exec;

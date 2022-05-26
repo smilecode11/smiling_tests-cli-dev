@@ -95,6 +95,8 @@ class Package {
             })
             //  安装完成, 更新最新版本
             this.packageVersion = latestPackageVersion
+        } else {
+            this.packageVersion = latestPackageVersion
         }
     }
 

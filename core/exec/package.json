@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@smiling_tests/cli-dev-get-npm-info": "file:../../utils/get-npm-info",
+    "@smiling_tests/cli-dev-utils": "file:../../utils/utils",
     "@smiling_tests/cli-dev-log": "file:../../utils/log",
     "@smiling_tests/cli-dev-package": "file:../../models/package"
   }
