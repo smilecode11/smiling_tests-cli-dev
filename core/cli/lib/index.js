@@ -138,7 +138,7 @@ async function checkGlobalUpdate() {
     const currentVersion = pkg.version
     const npmName = pkg.name
     //  2.调用 npm API, 获取所有版本号
-    const { getNpmSemverVersion } = require('@smiling_tests/get-npm-info')
+    const { getNpmSemverVersion } = require('@smiling_tests/cli-dev-get-npm-info')
     const lastVersion = await getNpmSemverVersion(currentVersion, npmName)
     //  3.提取所有版本号, 对比哪些版本是大于当前版本号的
     //  4.获取最新的版本号, 提示用户更新到该版本
