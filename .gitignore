@@ -13,6 +13,3 @@ utils/**/node_modules
 #core/**/package-lock.json
 #models/**/package-lock.json
 #utils/**/package-lock.json
-
-.DS_Store
-#**/.DS_Store
