@@ -9,10 +9,10 @@ core/**/node_modules
 models/**/node_modules
 utils/**/node_modules
 
-commands/**/package-lock.json
-core/**/package-lock.json
-models/**/package-lock.json
-utils/**/package-lock.json
+#commands/**/package-lock.json
+#core/**/package-lock.json
+#models/**/package-lock.json
+#utils/**/package-lock.json
 
 .DS_Store
-**/.DS_Store
+#**/.DS_Store
