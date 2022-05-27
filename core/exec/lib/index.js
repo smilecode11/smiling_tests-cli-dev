@@ -7,8 +7,8 @@ const { exec: spawn } = require("@smiling_tests/cli-dev-utils")
 
 /** 命令映射列表*/
 const COMMAND_SETTINGS = {
-    // init: '@smiling_tests/cli-dev-init',
-    init: '@imooc-cli/init'
+    init: '@smiling_tests/cli-dev-init',
+    // init: '@imooc-cli/init'
 }
 
 //  缓存文件目录
