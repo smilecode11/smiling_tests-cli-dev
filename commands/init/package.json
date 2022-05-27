@@ -32,7 +32,7 @@
     "@smiling_tests/cli-dev-package": "file:../../models/package",
     "@smiling_tests/cli-dev-request": "file:../../utils/request",
     "@smiling_tests/cli-dev-utils": "file:../../utils/utils",
-    "ejs": "^3.1.8",
+    "ejs": "^3.1.5",
     "fs-extra": "^9.0.1",
     "glob": "^8.0.3",
     "inquirer": "^8.2.4",

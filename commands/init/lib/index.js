@@ -114,70 +114,90 @@ class InitCommand extends Command {
         })
         log.verbose('type:', type)
         //  (4) 获取项目基本信息 (object)
-        if (type === TYPE_PROJECT) {
-            const projectPromptArr = []
-            const projectNamePrompt = {
-                type: 'input',
-                message: "请输入项目的名称",
-                name: 'projectName',
-                default: '',
-                validate: function (v) {
-                    //  输入首字符必须为英文字符, 尾字符必须是英文或数字, 字符仅允许输入 - 或 _
-                    //  合法 a-b a_b aaa bbb a-b1-c1
-                    //  不合法 a_1 a-1 a_ a-
-                    const done = this.async()
+        let title = projectInfo.type === TYPE_PROJECT ? '项目' : '组件'
+        const projectPromptArr = []
+        const projectNamePrompt = {
+            type: 'input',
+            message: `请输入${title}的名称`,
+            name: 'projectName',
+            default: '',
+            validate: function (v) {
+                //  输入首字符必须为英文字符, 尾字符必须是英文或数字, 字符仅允许输入 - 或 _
+                //  合法 a-b a_b aaa bbb a-b1-c1
+                //  不合法 a_1 a-1 a_ a-
+                const done = this.async()
 
-                    setTimeout(function () {
-                        if (!isValidateName(v)) {
-                            done("输入项目名称格式有误 (仅支持 a-b a_b aaa bbb a-b1-c1  a1 等)")
-                            return;
-                        }
-                        done(null, true)
-                    }, 300)
-                },
-                filter: function (v) {
+                setTimeout(function () {
+                    if (!isValidateName(v)) {
+                        done(`输入${title}名称格式有误`)
+                        return;
+                    }
+                    done(null, true)
+                }, 0)
+            },
+            filter: function (v) {
+                return v
+            }
+        }
+        if (!isProjectValidate) projectPromptArr.push(projectNamePrompt)
+        projectPromptArr.push({
+            type: 'input',
+            name: 'projectVersion',
+            message: `请输入${title}版本号`,
+            default: '',
+            validate: function (v) {
+                const done = this.async()
+                setTimeout(function () {
+                    if (!!!semver.valid(v)) {
+                        done('输入版本号不合法')
+                        return
+                    }
+                    done(null, true)
+                }, 0)
+            },
+            filter: function (v) {
+                if (!!semver.valid(v)) {
+                    return semver.valid(v)
+                } else {
                     return v
                 }
             }
-            if (!isProjectValidate) projectPromptArr.push(projectNamePrompt)
-            projectPromptArr.push({
-                type: 'input',
-                name: 'projectVersion',
-                message: "请输入项目版本号",
-                default: '',
-                validate: function (v) {
-                    const done = this.async()
-                    setTimeout(function () {
-                        if (!!!semver.valid(v)) {
-                            done('输入版本号不合法')
-                            return
-                        }
-                        done(null, true)
-                    }, 300)
-                },
-                filter: function (v) {
-                    if (!!semver.valid(v)) {
-                        return semver.valid(v)
-                    } else {
-                        return v
-                    }
-                }
-            }, {
-                type: 'list',
-                name: 'projectTemplate',
-                message: '请选择项目模板',
-                choices: this.renderTemplateChoices()
-            })
-
+        }, {
+            type: 'list',
+            name: 'projectTemplate',
+            message: `请选择${title}模板`,
+            choices: this.renderTemplateChoices(type)
+        })
+        if (type === TYPE_PROJECT) {
             const project = await inquirer.prompt(projectPromptArr)
             //  重新赋值项目信息
             projectInfo = {
-                type,
                 ...project,
                 ...projectInfo
             }
         } else if (type === TYPE_COMPONENT) {
-
+            const descriptionPrompt = {
+                type: 'input',
+                name: 'componentDescription',
+                message: "请输入组件描述信息",
+                validate: function (v) {
+                    const done = this.async()
+                    setTimeout(function () {
+                        if (!v) {
+                            done('请输入组件描述信息')
+                            return
+                        }
+                        done(null, true)
+                    }, 300)
+                }
+            }
+            projectPromptArr.push(descriptionPrompt)
+            const component = await inquirer.prompt(projectPromptArr)
+            //  重新赋值组件信息
+            projectInfo = {
+                ...component,
+                ...projectInfo
+            }
         }
         //  项目名称格式化: 生成 classname 
         //  驼峰转 -> - 连接 AbcD -> abc-d 使用 kebabCase
@@ -187,6 +207,9 @@ class InitCommand extends Command {
         }
         if (projectInfo.projectVersion) {
             projectInfo.version = projectInfo.projectVersion
+        }
+        if (projectInfo.componentDescription) {
+            projectInfo.description = projectInfo.componentDescription
         }
         this.projectInfo = projectInfo;
         log.verbose('projectInfo', projectInfo)
@@ -212,7 +235,7 @@ class InitCommand extends Command {
             const spinner = spinnerStart('正在下载模板...')
             await sleep()
             try {
-                await templateNpm.install()
+                await templateNpm.install(true)
             } catch (e) {
                 throw e
             } finally {
@@ -226,7 +249,7 @@ class InitCommand extends Command {
             const spinner = spinnerStart('正在更新模板...')
             await sleep()
             try {
-                await templateNpm.update()
+                await templateNpm.update(true)
             } catch (e) {
                 throw e
             } finally {
@@ -274,7 +297,8 @@ class InitCommand extends Command {
         }
 
         //  (2) ejs 模板渲染
-        const ignore = ['node_modules/**', 'public/**', 'src/**']
+        const tempIgnore = this.templateInfo.ignore;
+        const ignore = ['node_modules/**', ...tempIgnore]
         await this.ejsRender({ ignore })
 
         //  (3) 模板依赖安装 & 启动命令
@@ -340,7 +364,28 @@ class InitCommand extends Command {
 
     /** 自定义安装*/
     async installCustomTemplate() {
-
+        //  查询自定义模板入口文件
+        if (await this.templateNpm.exists()) {
+            const rootFile = this.templateNpm.getRootFilePath()
+            if (fs.existsSync(rootFile)) {
+                log.notice('开始执行自定义模板')
+                const templatePath = path.resolve(this.templateNpm.cacheFilePath, 'template')
+                const options = {
+                    templateNpm: this.templateInfo,
+                    projectInfo: this.projectInfo,
+                    sourcePath: templatePath,
+                    targetPath: process.cwd()
+                }
+                const code = `require('${rootFile}')(${JSON.stringify(options)})`
+                execAsync('node', ['-e', code], {
+                    stdio: 'inherit',
+                    cwd: process.cwd()
+                })
+                log.notice('自定义模板安装成功')
+            } else {
+                throw new Error('自定义模板入口文件不存在')
+            }
+        }
     }
 
     /** 判断当前目录是否为空*/
@@ -352,11 +397,13 @@ class InitCommand extends Command {
         return !fileList || fileList.length <= 0
     }
 
-    renderTemplateChoices() {
-        return this.templates.map(template => ({
-            name: template.name,
-            value: template.npmName
-        }))
+    renderTemplateChoices(type) {
+        return this.templates
+            .filter(temp => temp.tag.includes(type))
+            .map(template => ({
+                name: template.name,
+                value: template.npmName
+            }))
     }
 }
 

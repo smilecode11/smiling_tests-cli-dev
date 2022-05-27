@@ -61,13 +61,13 @@ class Package {
     }
 
     //  安装 package
-    async install() {
+    async install(isOriginal = false) {
         await this.prepare()
 
         await npminstall({
             root: this.targetPath,
             storeDir: this.storeDir,
-            registry: getDefaultRegistry(),
+            registry: getDefaultRegistry(isOriginal),
             pkgs: [{
                 name: this.packageName,
                 version: this.packageVersion
@@ -76,7 +76,7 @@ class Package {
     }
 
     //  更新 package
-    async update() {
+    async update(isOriginal = false) {
         await this.prepare()
         //  获取最新版本号
         const latestPackageVersion = await getNpmLatestVersion(this.packageName)
@@ -87,7 +87,7 @@ class Package {
             await npminstall({
                 root: this.targetPath,
                 storeDir: this.storeDir,
-                registry: getDefaultRegistry(),
+                registry: getDefaultRegistry(isOriginal),
                 pkgs: [{
                     name: this.packageName,
                     version: latestPackageVersion
